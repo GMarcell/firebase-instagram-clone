@@ -1,69 +1,46 @@
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import './App.css';
-import storage from './firebase/config';
+import Post from './components/Post';
+import dbfirestore from './firebase/config'
+import { collection, getDocs } from "firebase/firestore"
+
 
 function App() {
-  const [progress, setProgress] = useState(0);
-  const formHandler = (e) => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
-    // console.log(file)
-    uploadFile(file)
-  }
-
-  const uploadFile = (file) => {
-    // check file kosong apa gk
-    if (!file) return;
-    // alamat ke storage firebase
-    const storageRef = ref(storage, `/files/${file.name}`)
-    //mulai upload
-    const uploadTask = uploadBytesResumable(storageRef, file)
-    uploadTask.on("state_changed", (snapshot) => {
-      const prog = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-      setProgress(prog)
-    }, (err) => console.log(err),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => console.log(url))
-      })
-  }
-
+  const [posts, setPosts] = useState([
+    {
+      username: "GMarcell",
+      caption: "Hello It Works",
+      imgUrl: "https://reactjs.org/logo-og.png"
+    },
+    {
+      username: "MImanuel",
+      caption: "Hello It Works in state",
+      imgUrl: "https://reactjs.org/logo-og.png"
+    }
+  ]);
+  useEffect(() => {
+    const dbPostRef = collection(dbfirestore, "posts")
+    const getPosts = async () => {
+      const data = await getDocs(dbPostRef)
+      setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    }
+    getPosts()
+  }, [posts])
   return (
     <div className="App">
-      <div>
-        <div>
-          <div className='flex'>
-            <FontAwesomeIcon icon={faUserCircle} size='6x' />
-            <div className='my-auto ml-7'>
-              <h1 className='text-3xl font-bold'>User Name</h1>
-              <h1 className='text-left mt-3'>
-                Jumlah Post:
-                <span className='underline mx-1'>
-                  00
-                </span>
-                Post
-              </h1>
-            </div>
-          </div>
-          <button className='bg-blue-700 w-full rounded text-white font-bold mt-2'>Add Post</button>
-          <form onSubmit={formHandler}>
-            <input type='file' />
-            <button type='submit'>UPLOAD</button>
-          </form>
-          <hr />
-          <h3>Uploaded {progress} % </h3>
-        </div>
-        <div className='grid grid-flow-row grid-cols-3 gap-4 mt-5'>
-          <div className='bg-red-900 rounded'>1</div>
-          <div className='bg-red-900 rounded'>1</div>
-          <div className='bg-red-900 rounded'>1</div>
-          <div className='bg-red-900 rounded'>1</div>
-          <div className='bg-red-900 rounded'>1</div>
-          <div className='bg-red-900 rounded'>1</div>
-        </div>
+      {/* Header */}
+      <div className='app__header'>
+        <img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt='Instagram Logo' />
       </div>
+      <h1>💯 Clone Instagram</h1>
+      {
+        posts.map(post => (
+          <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
+        ))
+      }
+      {/* Posts */}
+      {/* Posts */}
     </div>
   );
 }
