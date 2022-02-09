@@ -2,16 +2,14 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Post from './components/Post';
 import { dbfirestore, storage } from './firebase/config'
-import { addDoc, collection, getDocs } from "firebase/firestore"
+import { collection, getDocs, addDoc } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { FirebaseError } from 'firebase/app';
 
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [username, setUsername] = useState("");
   const [caption, setCaption] = useState("");
-  const [imageURL, setImageURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const dbPostRef = collection(dbfirestore, "posts")
   useEffect(() => {
@@ -30,9 +28,13 @@ function App() {
     }
   }
 
-  const handleUpload = () => {
-    const UploadTask = storage.ref(`images/${selectedFile.name}`).put(selectedFile)
-    UploadTask.on(
+  const handleUpload = (e) => {
+    e.preventDefault()
+    const storageRef = ref(storage, `/images/${selectedFile.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, selectedFile)
+    // const UploadTask = storage.ref(`images/${selectedFile.name}`).put(selectedFile)
+    // const UploadTask = ref(storage, `images/${selectedFile.name}`).put(selectedFile)
+    uploadTask.on(
       "state_changed",
       (snapshot) => {
         const prog = Math.round(
@@ -45,8 +47,17 @@ function App() {
         alert(error.message)
       },
       () => {
-        storage.ref("images").child(selectedFile.name).getDownloadURL().then(url => {
-          dbfirestore.collection("posts").add({
+        // storage.ref("images").child(selectedFile.name).getDownloadURL().then(url => {
+        //   console.log(url);
+        //   dbfirestore.collection("posts").addDoc({
+        //     caption: caption,
+        //     imgUrl: url,
+        //     username: username
+        //   })
+        // })
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          // console.log(url);
+          addDoc(collection(dbfirestore, "posts"), {
             caption: caption,
             imgUrl: url,
             username: username
