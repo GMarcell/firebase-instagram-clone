@@ -47,16 +47,7 @@ function App() {
         alert(error.message)
       },
       () => {
-        // storage.ref("images").child(selectedFile.name).getDownloadURL().then(url => {
-        //   console.log(url);
-        //   dbfirestore.collection("posts").addDoc({
-        //     caption: caption,
-        //     imgUrl: url,
-        //     username: username
-        //   })
-        // })
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          // console.log(url);
           addDoc(collection(dbfirestore, "posts"), {
             caption: caption,
             imgUrl: url,
