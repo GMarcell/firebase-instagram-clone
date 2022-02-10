@@ -15,7 +15,7 @@ function Post(props) {
             <div className='post__header'>
                 <Avatar className='post__avatar' alt={props.username} src="/static/images/avatar/1.jpg" />
                 <h3>{props.username}</h3>
-                <button className="post__delete" onClick={() => { deleteDoc(props.iddoc) }}>
+                <button className="post__delete" onClick={() => { deletePost(props.iddoc) }}>
                     <HighlightOff fontSize='large' />
                 </button>
             </div>

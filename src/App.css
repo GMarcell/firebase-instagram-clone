@@ -7,6 +7,24 @@ html{
   background-color: #010457;
 }
 
+.main{
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app__addPost{
+  color: #eeeeee;
+  align-self: center;
+  margin: auto;
+}
+
+.addpost{
+  margin: auto;
+}
+
 .header__title{
   font-size: 50px;
   color: #eeeeee;

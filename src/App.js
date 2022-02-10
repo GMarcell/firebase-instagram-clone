@@ -4,6 +4,7 @@ import Post from './components/Post';
 import { dbfirestore } from './firebase/config'
 import { collection, getDocs } from "firebase/firestore"
 import AddForm from './components/AddForm';
+import { AddPhotoAlternate } from '@material-ui/icons';
 
 
 function App() {
@@ -23,19 +24,24 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {/* Header */}
-      <div className='app__header'>
-        <h1 className='header__title'>MyGram</h1>
+    <div className='main'>
+      <div className="App">
+        {/* Header */}
+        <div className='app__header'>
+          <h1 className='header__title'>MyGram</h1>
+        </div>
+        <div className='app__addPost'>
+          <button onClick={togglePopUp} >
+            <AddPhotoAlternate fontSize='large' />
+          </button>
+        </div>
+        {isOpen && <AddForm handleClose={togglePopUp} />}
+        {
+          posts.map(post => (
+            <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} iddoc={post.id} />
+          ))
+        }
       </div>
-      <h1>💯 Clone Instagram</h1>
-      <button onClick={togglePopUp}>Add Form</button>
-      {isOpen && <AddForm handleClose={togglePopUp} />}
-      {
-        posts.map(post => (
-          <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} iddoc={post.id} />
-        ))
-      }
     </div>
   );
 }
