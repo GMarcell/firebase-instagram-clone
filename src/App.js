@@ -33,14 +33,17 @@ function App() {
         <div className='app__addPost'>
           <button onClick={togglePopUp} >
             <AddPhotoAlternate fontSize='large' />
+            ADD POST
           </button>
         </div>
         {isOpen && <AddForm handleClose={togglePopUp} />}
-        {
-          posts.map(post => (
-            <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} iddoc={post.id} />
-          ))
-        }
+        <div className='app__container'>
+          {
+            posts.map(post => (
+              <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} iddoc={post.id} />
+            ))
+          }
+        </div>
       </div>
     </div>
   );

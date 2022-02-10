@@ -19,6 +19,11 @@ html{
   color: #eeeeee;
   align-self: center;
   margin: auto;
+  font-weight: 400;
+}
+
+.app__container{
+  overflow: scroll;
 }
 
 .addpost{
