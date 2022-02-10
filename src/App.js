@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Post from './components/Post';
-import { dbfirestore, storage } from './firebase/config'
-import { collection, getDocs, addDoc } from "firebase/firestore"
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { dbfirestore } from './firebase/config'
+import { collection, getDocs } from "firebase/firestore"
+import AddForm from './components/AddForm';
 
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [username, setUsername] = useState("");
-  const [caption, setCaption] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const dbPostRef = collection(dbfirestore, "posts")
   useEffect(() => {
     const getPosts = async () => {
@@ -20,42 +18,8 @@ function App() {
     getPosts()
   }, [posts])
 
-  const [progress, setProgress] = useState(0);
-
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setSelectedFile(e.target.files[0])
-    }
-  }
-
-  const handleUpload = (e) => {
-    e.preventDefault()
-    const storageRef = ref(storage, `/images/${selectedFile.name}`)
-    const uploadTask = uploadBytesResumable(storageRef, selectedFile)
-    // const UploadTask = storage.ref(`images/${selectedFile.name}`).put(selectedFile)
-    // const UploadTask = ref(storage, `images/${selectedFile.name}`).put(selectedFile)
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.TotalBytes) * 100
-        )
-        setProgress(prog)
-      },
-      (error) => {
-        console.log(error);
-        alert(error.message)
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          addDoc(collection(dbfirestore, "posts"), {
-            caption: caption,
-            imgUrl: url,
-            username: username
-          })
-        })
-      }
-    )
+  const togglePopUp = () => {
+    setIsOpen(!isOpen);
   }
 
   return (
@@ -65,20 +29,14 @@ function App() {
         <img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt='Instagram Logo' />
       </div>
       <h1>💯 Clone Instagram</h1>
-      <form onSubmit={handleUpload}>
-        <input placeholder='Username' type="text" onChange={(e) => setUsername(e.target.value)} />
-        <textarea onChange={(e) => setCaption(e.target.value)}></textarea>
-        <input type='file' onChange={handleChange} />
-        <button type='submit'>UPLOAD</button>
-      </form>
-      <h1>Uploaded {progress} %</h1>
+      <button onClick={togglePopUp}>Add Form</button>
+      {isOpen && <AddForm handleClose={togglePopUp} />}
+
       {
         posts.map(post => (
           <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
         ))
       }
-      {/* Posts */}
-      {/* Posts */}
     </div>
   );
 }
