@@ -1,3 +1,4 @@
+import { Button, Input, TextField } from '@mui/material';
 import { addDoc, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useState } from 'react'
@@ -47,10 +48,14 @@ function AddForm(props) {
         <div className='popup-box'>
             <div className='box'>
                 <form onSubmit={handleUpload}>
-                    <input placeholder='Username' type="text" onChange={(e) => setUsername(e.target.value)} />
-                    <textarea onChange={(e) => setCaption(e.target.value)}></textarea>
-                    <input type='file' onChange={handleChange} />
-                    <button type='submit'>UPLOAD</button>
+                    <Input variant='filled' placeholder='Username' type="text" onChange={(e) => setUsername(e.target.value)} />
+                    <TextField multiline onChange={(e) => setCaption(e.target.value)}></TextField>
+                    {/* <input type='file' onChange={handleChange} />
+                    <button type='submit'>UPLOAD</button> */}
+                    <Button variant="contained" component="label" onChange={handleChange}>
+                        Upload File
+                        <input type="file" hidden />
+                    </Button>
                 </form>
                 <div className="close-icon" onClick={props.handleClose}>X</div>
                 <h3>Upload {progress} %</h3>
