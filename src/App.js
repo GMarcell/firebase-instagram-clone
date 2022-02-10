@@ -26,15 +26,14 @@ function App() {
     <div className="App">
       {/* Header */}
       <div className='app__header'>
-        <img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt='Instagram Logo' />
+        <h1 className='header__title'>MyGram</h1>
       </div>
       <h1>💯 Clone Instagram</h1>
       <button onClick={togglePopUp}>Add Form</button>
       {isOpen && <AddForm handleClose={togglePopUp} />}
-
       {
         posts.map(post => (
-          <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
+          <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} iddoc={post.id} />
         ))
       }
     </div>

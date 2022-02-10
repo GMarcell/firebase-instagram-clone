@@ -1,8 +1,9 @@
 .post{
-    max-width: 500px;
+    max-width: 400px;
     background-color: white;
     border: 1px solid lightgray;
     margin-bottom: 45px;
+    border-radius: 15px;
 }
 
 .post__image{
@@ -10,6 +11,10 @@
     object-fit: contain;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+}
+
+.post__delete{
+    margin-left: 220px;
 }
 
 .post__text{

@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne+Tactile&display=swap');
 *{
   margin: 0;
 }
-.app{
-  background-color: #fafafa;
+
+html{
+  background-color: #010457;
 }
-.app__header{
-  background-color: white;
-  object-fit: contain;
-  padding: 20px;
-  border-bottom: 1px solid lightgray;
+
+.header__title{
+  font-size: 50px;
+  color: #eeeeee;
+  font-weight: 700;
+  font-family: 'Syne Tactile', sans-serif;
 }

@@ -2,6 +2,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useState } from 'react'
 import { dbfirestore, storage } from '../firebase/config';
+import './AddForm.css'
 
 function AddForm(props) {
     const [username, setUsername] = useState("");
@@ -52,6 +53,7 @@ function AddForm(props) {
                     <button type='submit'>UPLOAD</button>
                 </form>
                 <div className="close-icon" onClick={props.handleClose}>X</div>
+                <h3>Upload {progress} %</h3>
             </div>
         </div>
     )
