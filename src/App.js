@@ -24,26 +24,24 @@ function App() {
   }
 
   return (
-    <div className='main'>
-      <div className="App">
-        {/* Header */}
-        <div className='app__header'>
-          <h1 className='header__title'>MyGram</h1>
-        </div>
+    <div className="App">
+      {/* Header */}
+      <div className='app__header'>
+        <h1 className='header__title'>My Gram</h1>
         <div className='app__addPost'>
           <button onClick={togglePopUp} >
             <AddPhotoAlternate fontSize='large' />
             ADD POST
           </button>
         </div>
-        {isOpen && <AddForm handleClose={togglePopUp} />}
-        <div className='app__container'>
-          {
-            posts.map(post => (
-              <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} iddoc={post.id} />
-            ))
-          }
-        </div>
+      </div>
+      {isOpen && <AddForm handleClose={togglePopUp} />}
+      <div className='app__container'>
+        {
+          posts.map(post => (
+            <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} iddoc={post.id} />
+          ))
+        }
       </div>
     </div>
   );

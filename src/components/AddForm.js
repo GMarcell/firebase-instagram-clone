@@ -50,12 +50,12 @@ function AddForm(props) {
                 <form onSubmit={handleUpload}>
                     <Input variant='filled' placeholder='Username' type="text" onChange={(e) => setUsername(e.target.value)} />
                     <TextField multiline onChange={(e) => setCaption(e.target.value)}></TextField>
-                    {/* <input type='file' onChange={handleChange} />
-                    <button type='submit'>UPLOAD</button> */}
-                    <Button variant="contained" component="label" onChange={handleChange}>
+                    <input type='file' onChange={handleChange} />
+                    <button type='submit'>UPLOAD</button>
+                    {/* <Button variant="contained" component="label" onChange={handleChange}>
                         Upload File
                         <input type="file" hidden />
-                    </Button>
+                    </Button> */}
                 </form>
                 <div className="close-icon" onClick={props.handleClose}>X</div>
                 <h3>Upload {progress} %</h3>

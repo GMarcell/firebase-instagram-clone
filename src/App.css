@@ -7,11 +7,14 @@ html{
   background-color: #010457;
 }
 
-.main{
-  min-height: 100vh;
-  width: 100%;
+.app{
+  width: 100vw;
+  height: 100vh;
+}
+
+.app__header{
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -20,10 +23,17 @@ html{
   align-self: center;
   margin: auto;
   font-weight: 400;
+  background-color: #da1212;
+  padding: 5px;
+  border-radius: 15px;
 }
 
 .app__container{
-  overflow: scroll;
+  /* max-height: 600px;
+  overflow: scroll; */
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .addpost{
@@ -31,6 +41,7 @@ html{
 }
 
 .header__title{
+  margin: auto;
   font-size: 50px;
   color: #eeeeee;
   font-weight: 700;

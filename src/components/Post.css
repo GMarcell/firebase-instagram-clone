@@ -1,9 +1,10 @@
 .post{
-    max-width: 400px;
+    max-width: 300px;
+    max-height: 500px;
     background-color: white;
     border: 1px solid lightgray;
-    margin-bottom: 45px;
-    border-radius: 15px;
+    margin: 10px;
+    border-radius: 15px; 
 }
 
 .post__image{
@@ -13,13 +14,9 @@
     border-bottom: 1px solid lightgray;
 }
 
-.post__delete{
-    margin-left: 220px;
-}
-
 .post__text{
     font-weight: normal;
-    padding: 20px;
+    padding: 10px;
 }
 
 .post__text span{
@@ -30,7 +27,8 @@
 .post__header{
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
+    justify-content: space-between;
 }
 
 .post__avatar{
