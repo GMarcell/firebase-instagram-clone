@@ -1,24 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne+Tactile&display=swap');
-*{
+
+* {
   margin: 0;
 }
 
-html{
+html {
   background-color: #010457;
 }
 
-.app{
+.app {
   width: 100vw;
   height: 100vh;
 }
 
-.app__header{
+.app__header {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.app__addPost{
+.app__addPost {
   color: #eeeeee;
   align-self: center;
   margin: auto;
@@ -28,22 +29,26 @@ html{
   border-radius: 15px;
 }
 
-.app__container{
-  /* max-height: 600px;
-  overflow: scroll; */
+.app__container {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.addpost{
+.addpost {
   margin: auto;
 }
 
-.header__title{
+.header__title {
   margin: auto;
-  font-size: 50px;
+  font-size: 2rem;
   color: #eeeeee;
   font-weight: 700;
   font-family: 'Syne Tactile', sans-serif;
+}
+
+@media only screen and (min-width: 768px) {
+  .app__container {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

@@ -31,7 +31,6 @@ function App() {
         <div className='app__addPost'>
           <button onClick={togglePopUp} >
             <AddPhotoAlternate fontSize='large' />
-            ADD POST
           </button>
         </div>
       </div>
